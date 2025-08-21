@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Track the progress</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="card">
+        <h1>Wer rennt schneller zum Rennrad?</h1>
+    
+        <div class="row">
+          <div class="label">Avatar 1</div>
+          <div class="progress" aria-label="Fortschritt 1">
+            <div class="fill fill-1" id="fill1" style="width: 65%">
+              <img class="avatar" src="resources/girl_blonde_hair.png" alt="Avatar 1" />
+            </div>
+          </div>
+          <div>
+            <span class="percent" id="p1">0 €</span>
+            <button onclick="addKm(1)">+ km</button>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="label">Avatar 2</div>
+          <div class="progress" aria-label="Fortschritt 2">
+            <div class="fill fill-2" id="fill2" style="width: 40%">
+              <img class="avatar" src="resources/girl_brown_hair.png" alt="Avatar 2" />
+            </div>
+          </div>
+          <div>
+            <span class="percent" id="p2">0 €</span>
+            <button onclick="addKm(2)">+ km</button>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        // const r1 = document.getElementById('r1');
+        // const r2 = document.getElementById('r2');
+        // const f1 = document.getElementById('fill1');
+        // const f2 = document.getElementById('fill2');
+        // const p1 = document.getElementById('p1');
+        // const p2 = document.getElementById('p2');
+    
+        // function update(fill, percentEl, value) {
+        //   const v = Math.max(0, Math.min(100, Number(value)||0));
+        //   fill.style.width = v + '%';
+        //   percentEl.textContent = v + '%';
+        // }
+    
+        // r1.addEventListener('input', e => update(f1, p1, e.target.value));
+        // r2.addEventListener('input', e => update(f2, p2, e.target.value));
+
+        const moneyGoal = 1500;
+        const moneyPerKm = 2.5;
+        let km1 = 0, km2 = 0;
+
+        function updateBar(id, km) {
+        const percent = Math.min(100, (km*moneyPerKm/moneyGoal)*100);
+        document.getElementById("fill"+id).style.width = percent + "%";
+        document.getElementById("p"+id).textContent = km*moneyPerKm + " €";
+        }
+
+        function addKm(id) {
+        const input = prompt("Wie viele Kilometer hinzufügen?");
+        const value = parseFloat(input);
+        if (!isNaN(value) && value > 0) {
+            if (id === 1) { km1 += value; updateBar(1, km1); }
+            if (id === 2) { km2 += value; updateBar(2, km2); }
+        }
+        }
+      </script>
+</html>
