@@ -1,0 +1,97 @@
+:root {
+    --bar-height: 26px;
+    --radius: 999px;
+    --gap: 28px;
+}
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background: #faf9fb;
+    color: #222;
+    margin: 0;
+    padding: 40px 20px 40px 20px;
+    display: grid;
+    place-items: center;
+}
+.card {
+    width: min(900px, 92vw);
+    background: #fff;
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+h1 {
+    margin: 0 0 18px;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+.row {
+    display: grid;
+    grid-template-columns: 120px 1fr 90px;
+    gap: 16px;
+    align-items: center;
+    margin: 18px 0 26px;
+}
+.label { font-weight: 700; font-size: 14px; color: #555 }
+
+.progress {
+    position: relative;
+    width: 100%;
+    height: var(--bar-height);
+    background: #eee;
+    border-radius: var(--radius);
+    overflow: visible;
+}
+.fill {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    border-radius: var(--radius);
+    display: grid;
+    align-items: center;
+    transition: width .6s ease;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.35);
+}
+.fill-1 { background: linear-gradient(90deg, #ff8ccf, #ffb3d9); }
+.fill-2 { background: linear-gradient(90deg, #7ad7f0, #9ae6ff); }
+
+.avatar {
+    position: absolute;
+    right: calc(-1 * (var(--gap) - 6px));
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(var(--bar-height) + 12px);
+    width: auto;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,.12));
+    pointer-events: none;
+    user-select: none;
+}
+
+.percent {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-weight: 700;
+    color: #333;
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: #e9e9ee;
+    outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%; background: #222;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 18px; height: 18px; border: none; border-radius: 50%; background: #222; cursor: pointer;
+}
+
+.hint { color: #666; font-size: 12px; margin-top: 10px }
