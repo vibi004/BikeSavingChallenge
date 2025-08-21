@@ -1,4 +1,4 @@
-import {getUserByName, verifyPassword} from '/scripts/database/user.js'
+import {getUserByName, verifyPassword} from '../database/user.js'
 
 const form = document.getElementById('login-form')
 const errorEl = document.getElementById('login-error')
