@@ -42,7 +42,6 @@ export async function getAllUsers() {
     return data
 }
 
-// Passwort prüfen (Beispiel, falls Passwort als Hash in DB gespeichert)
 export async function verifyPassword(name, passwordHash) {
     const user = await getUserByName(name)
     if (!user) return false
