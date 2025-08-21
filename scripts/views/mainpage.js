@@ -7,5 +7,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('user-name').textContent = `Hallo ${userName}! 🎉`
 
-
+    document.getElementById('logout').addEventListener('click', () => {
+        localStorage.removeItem('user');     // Benutzer entfernen
+        window.location.href = '../index.html'; // Zur Startseite weiterleiten
+    });
 })
