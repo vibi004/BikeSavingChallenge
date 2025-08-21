@@ -5,7 +5,7 @@ export async function getUserByName(name) {
     const { data, error } = await supabase
         .from('User')
         .select('*')
-        .eq('name', name)
+        .eq('user_name', name)
         .single()
 
     if (error) {
