@@ -33,7 +33,7 @@ form.addEventListener('submit', async (e) => {
     errorEl.style.color = 'green'
     errorEl.textContent = `Hallo ${user.name}! Du bist eingeloggt.`
 
-    localStorage.setItem('user', user.name)
+    localStorage.setItem('user', user.user_name)
 
     setTimeout(() => {
         window.location.href = 'pages/mainpage.html'
