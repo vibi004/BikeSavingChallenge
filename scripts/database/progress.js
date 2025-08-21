@@ -15,9 +15,22 @@ export async function getProgressByUser(user_id) {
 }
 
 export async function updateProgress(km, user_id) {
+    const { data: currentData, error: selectError } = await supabase
+        .from('Progress')
+        .select('km')
+        .eq('user_id', user_id)
+        .single()
+
+    if (selectError) {
+        console.error('Fehler beim Laden des aktuellen km-Werts:', selectError)
+        return null
+    }
+
+    const newKm = (currentData.km || 0) + km
+
     const { data, error } = await supabase
         .from('Progress')
-        .update({ km: km })
+        .update({ km: newKm })
         .eq('user_id', user_id)
         .select()
         .single()
@@ -26,20 +39,7 @@ export async function updateProgress(km, user_id) {
         console.error('Fehler updateProgress:', error)
         return null
     }
+
     return data
 }
 
-export async function getKmMultiplied(user_id) {
-    const { data, error } = await supabase
-        .from('Progress')
-        .select('km')
-        .eq('user_id', user_id)
-        .single()
-
-    if (error) {
-        console.error('Fehler getKmMultiplied:', error)
-        return null
-    }
-
-    return data.km * 2.5
-}

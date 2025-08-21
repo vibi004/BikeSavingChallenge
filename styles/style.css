@@ -26,7 +26,7 @@ h1 {
 }
 .row {
     display: grid;
-    grid-template-columns: 120px 1fr 90px;
+    grid-template-columns: 80px 1fr 120px;
     gap: 16px;
     align-items: center;
     margin: 18px 0 26px;
@@ -40,6 +40,7 @@ h1 {
     background: #eee;
     border-radius: var(--radius);
     overflow: visible;
+    padding: 0;
 }
 .fill {
     position: relative;
@@ -95,3 +96,23 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .hint { color: #666; font-size: 12px; margin-top: 10px }
+
+
+@media (max-width: 600px) {
+    .row {
+        grid-template-columns: 1fr; /* alles untereinander */
+        gap: 8px;
+    }
+
+    .label, .progress, .percent {
+        width: 100%; /* volle Breite */
+    }
+
+    .progress {
+        margin-top: 4px;
+    }
+
+    .percent {
+        text-align: right; /* optional */
+    }
+}
