@@ -8,53 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../styles/style.css">
     <style>
-        table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            text-align: center;
-            vertical-align: middle;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        th {
-            white-space: normal;      /* Zeilenumbruch erlauben */
-            word-wrap: break-word;    /* Wörter umbrechen, falls nötig */
-            word-break: break-word;   /* unterstützt Browserkompatibilität */
-            vertical-align: middle;
-            padding: 8px;
-            text-align: center;
-        }
-
-        /* Nummerierungsspalte */
-        td.number-col, th.number-col {
-            width: 5%;
-            min-width: 30px;
-        }
-
-        /* Datumsspalte breiter */
-        td.date-col, th.date-col {
-            width: 15%;
-            min-width: 120px;
-        }
-
-        /* Challenge Spalten teilen sich Rest */
-        td.challenge-col, th.challenge-col {
-            width: calc((100% - 15% - 3%) / 7);
-            min-width: 80px;
-        }
-
-        .highlight-today {
-            background-color: #fff0f6; /* zartes rosa als Highlight */
-            font-weight: bold;
-        }
-
     </style>
 </head>
 <body>
@@ -104,7 +57,7 @@
         </div>
 
         <div>
-            <button id="addKm">+ km</button>
+            <button class="btn btn-primary" id="addKm">+ km</button>
         </div>
 
     </div>

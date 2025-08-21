@@ -1,6 +1,6 @@
 
 import { getUserByName } from "../database/user.js"
-import {getProgressByUser} from "../database/progress";
+import {getProgressByUser} from "../database/progress.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const userName = localStorage.getItem('user')
