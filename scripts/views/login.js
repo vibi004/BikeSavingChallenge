@@ -25,14 +25,11 @@ form.addEventListener("submit", async (e) => {
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     const messages = [
-        "Nice Try Tobias",
         "Nope, falsch️",
         "Versuch's nochmal",
         "Zugang verweigert",
         "Fast… aber nur fast",
     ];
-
-
 
     if (error) {
         failCount++;
