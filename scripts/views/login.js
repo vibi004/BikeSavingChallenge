@@ -1,41 +1,43 @@
-import {getUserByName, verifyPassword} from '../database/user.js'
+import { supabase } from "../database/supabase.js";
 
-const form = document.getElementById('login-form')
-const errorEl = document.getElementById('login-error')
+const form = document.getElementById("login-form");
+const msg = document.getElementById("login-msg");
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault()
-    errorEl.textContent = ''
-    errorEl.style.color = 'red' // Standardfarbe für Fehler
+const { data: sess } = await supabase.auth.getSession();
+if (sess?.session) {
+    window.location.href = "./pages/mainpage.html";
+}
 
-    const name = form.name.value
-    const password = form.password.value.trim()
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+    msg.className = "msg";
 
-    if (!name || !password) {
-        errorEl.textContent = 'Bitte Name und Passwort eingeben.'
-        return
+    const email = form.email.value.trim();
+    const password = form.password.value;
+
+    if (!email || !password) {
+        msg.textContent = "Bitte E-Mail und Passwort eingeben.";
+        msg.classList.add("err");
+        return;
     }
 
-    const userObject = getUserByName(name);
-
-    if (userObject.length === 0) {
-        errorEl.textContent = 'Kein Benutzer mit diesem Namen gefunden.'
-        return
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const messages = [
+        "Nice Try Tobias",
+        "Nope, falsch️",
+        "Versuch's nochmal",
+        "Zugang verweigert",
+        "Fast… aber nur fast",
+    ];
+    if (error) {
+        const rand = Math.floor(Math.random() * messages.length);
+        msg.textContent = messages[rand];
+        msg.classList.add("err");
+        return;
     }
 
-    const user = await userObject
-
-    if (!(await verifyPassword(name, password))) {
-        errorEl.textContent = 'Falsches Passwort.'
-        return
-    }
-
-    errorEl.style.color = 'green'
-    errorEl.textContent = `Hallo ${user.name}! Du bist eingeloggt.`
-
-    localStorage.setItem('user', user.user_name)
-
-    setTimeout(() => {
-        window.location.href = 'pages/mainpage.html'
-    }, 1000)
-})
+    msg.textContent = "Erfolgreich eingeloggt – weiterleiten…";
+    msg.classList.add("ok");
+    window.location.href = "./pages/mainpage.html";
+});

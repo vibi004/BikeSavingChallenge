@@ -1,45 +1,40 @@
-import { supabase } from './supabase.js'
+import { supabase } from './supabase.js';
 
 export async function getProgressByUser(user_id) {
     const { data, error } = await supabase
-        .from('Progress')
+        .from('progress')
         .select('*')
         .eq('user_id', user_id)
-        .single()
+        .maybeSingle();
 
     if (error) {
-        console.error('Fehler getProgressByUser:', error)
-        return null
+        console.error('Fehler getProgressByUser:', error);
+        return null;
     }
-    return data
+    return data;
 }
 
-export async function updateProgress(km, user_id) {
-    const { data: currentData, error: selectError } = await supabase
-        .from('Progress')
+export async function updateProgress(deltaKm, user_id) {
+    const { data: current, error: selErr } = await supabase
+        .from('progress')
         .select('km')
         .eq('user_id', user_id)
-        .single()
+        .maybeSingle();
 
-    if (selectError) {
-        console.error('Fehler beim Laden des aktuellen km-Werts:', selectError)
-        return null
+    if (selErr) {
+        return selErr;
     }
+    const currentKm = Number(current?.km ?? 0);
+    const newKm = currentKm + Number(deltaKm || 0);
 
-    const newKm = (currentData.km || 0) + km
-
-    const { data, error } = await supabase
-        .from('Progress')
+    const { error: updErr } = await supabase
+        .from('progress')
         .update({ km: newKm })
-        .eq('user_id', user_id)
-        .select()
-        .single()
+        .eq('user_id', user_id);
 
-    if (error) {
-        console.error('Fehler updateProgress:', error)
-        return null
+    if (updErr) {
+        console.error('Fehler updateProgress:', updErr);
+        return updErr;
     }
-
-    return data
+    return null;
 }
-
